@@ -20,8 +20,6 @@ public class CharControl : MonoBehaviour
     [SerializeField] private float lookAngle = 0f;
     private Camera mainCamera;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -29,7 +27,7 @@ public class CharControl : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         runAction = InputSystem.actions.FindAction("Sprint");
         jumpAction = InputSystem.actions.FindAction("Jump");
-        lookAction =  InputSystem.actions.FindAction("Look");
+        lookAction = InputSystem.actions.FindAction("Look");
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -37,7 +35,6 @@ public class CharControl : MonoBehaviour
         currentMoveSpeed = speed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector2 moveVector = moveAction.ReadValue<Vector2>();
@@ -50,19 +47,22 @@ public class CharControl : MonoBehaviour
 
     private void HandleMovement(Vector2 move)
     {
+        // CORREÇÃO: Pegando a direção correta olhando para frente com base na câmera
+        Vector3 forward = Vector3.ProjectOnPlane(mainCamera.transform.forward, Vector3.up).normalized;
         Vector3 right = Vector3.ProjectOnPlane(mainCamera.transform.right, Vector3.up).normalized;
-        Vector3 forward = Vector3.Cross(right, Vector3.up);
+        
         Vector3 moveDirection = (forward * move.y + right * move.x) * currentMoveSpeed;
 
-        if(characterController.isGrounded)
+        if (characterController.isGrounded)
         {
-            if(jumpAction.WasPressedThisFrame())
+            if (jumpAction.WasPressedThisFrame())
             {
                 verticalVelocity = jumpForce;
             }
             else
             {
-                verticalVelocity = -2f;
+                // Uma força constante para baixo um pouco maior garante que ele grude em rampas
+                verticalVelocity = -4f; 
             }
         }
         else
@@ -78,7 +78,7 @@ public class CharControl : MonoBehaviour
     {
         lookAngle += -lookVector.y * lookSensitivity;
         lookAngle = Mathf.Clamp(lookAngle, -lookAngleLimit, lookAngleLimit);
-        mainCamera.transform.localRotation = Quaternion.Euler(lookAngle,0,0);
+        mainCamera.transform.localRotation = Quaternion.Euler(lookAngle, 0, 0);
         transform.rotation *= Quaternion.Euler(0, lookVector.x * lookSensitivity, 0);
     }
 }

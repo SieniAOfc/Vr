@@ -470,7 +470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7289076918735689292, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.1
+      value: 14.51
       objectReference: {fileID: 0}
     - target: {fileID: 7289076918735689292, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_LocalPosition.z
@@ -508,8 +508,7 @@ PrefabInstance:
       propertyPath: ReticleInteractionLayerMask.m_Bits
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7654309102800971182, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
