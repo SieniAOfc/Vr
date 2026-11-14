@@ -1,0 +1,58 @@
+===================================================================
+                  RAIN PARTICLE EFFECTS (URP) - USER GUIDE
+===================================================================
+
+Welcome! This guide will walk you through setting up and customizing
+the 5 rain particle systems in your Unity project.
+
+-------------------------------------------------------------------
+1. GETTING STARTED (STEP-BY-STEP)
+-------------------------------------------------------------------
+Step 1: Check Pipeline
+  - Make sure your project is using the Universal Render Pipeline (URP).
+
+Step 2: Locate the Prefabs
+  - Navigate to: Assets/ADR_Textures/Content/Prefabs/URP/
+
+Step 3: Add Rain to Your Scene
+  - Drag your desired rain prefab into your Scene or Hierarchy.
+  - Position the particle system above your main camera or level area.
+  - Pro Tip: Parent the particle system to your Main Camera if you want 
+    the rain to follow the player across large maps!
+
+-------------------------------------------------------------------
+2. PREFAB BREAKDOWN
+-------------------------------------------------------------------
+1. PFX_Rain_Drizzle   : Gentle, light rainfall for calm scenes.
+2. PFX_Rain_Mist      : Soft atmospheric moisture and haze.
+3. PFX_Rain_HeavyMist : High-density fog/mist for swamps or storms.
+4. PFX_Rain_Downpour  : Heavy vertical rainfall for intense weather.
+5. PFX_Rain_StormWind : High-speed wind-blown rain for violent storms.
+
+-------------------------------------------------------------------
+3. HOW TO CUSTOMIZE THE EFFECTS
+-------------------------------------------------------------------
+Select any rain particle prefab in your Hierarchy to adjust settings:
+
+- Rain Amount (Density):
+  -> Open 'Emission' module -> Adjust 'Rate over Time'.
+
+- Rain Speed:
+  -> Open 'Main' module -> Adjust 'Start Speed'.
+
+- Wind Angle & Direction:
+  -> Rotate the GameObject on the X/Z axes, or adjust values inside 
+     the 'Force over Lifetime' module.
+
+- Coverage Area:
+  -> Open 'Shape' module -> Scale the box/emitter dimensions to match 
+     your environment size.
+
+-------------------------------------------------------------------
+4. TROUBLESHOOTING
+-------------------------------------------------------------------
+Q: Why are my particles showing up bright pink?
+A: Ensure your project has the Universal Render Pipeline (URP) package 
+   installed and active in Project Settings > Graphics.
+
+===================================================================

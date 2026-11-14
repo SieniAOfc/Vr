@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1aecaecb7c5e1c54e825b394eb9040d2
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 394420
+  packageName: Rain particle effects (URP)
+  packageVersion: 1.0.1
+  assetPath: Assets/ADR_Textures/Content/Prefabs/URP/Rain_Effect/PFX_Rain_StormWind.prefab
+  uploadId: 983326

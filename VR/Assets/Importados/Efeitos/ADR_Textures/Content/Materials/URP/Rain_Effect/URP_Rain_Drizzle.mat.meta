@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5061296e784df8245b5098f30380f235
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 394420
+  packageName: Rain particle effects (URP)
+  packageVersion: 1.0.1
+  assetPath: Assets/ADR_Textures/Content/Materials/URP/Rain_Effect/URP_Rain_Drizzle.mat
+  uploadId: 983326

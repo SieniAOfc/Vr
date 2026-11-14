@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b2343ba01b09f624e85e143264745723
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 394420
+  packageName: Rain particle effects (URP)
+  packageVersion: 1.0.1
+  assetPath: Assets/ADR_Textures/Content/Materials/URP/Rain_Effect/URP_Rain_Downpour.mat
+  uploadId: 983326

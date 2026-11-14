@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 445a9ab85f001b246aba0b65c373dc66
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 394420
+  packageName: Rain particle effects (URP)
+  packageVersion: 1.0.1
+  assetPath: Assets/ADR_Textures/Content/Materials/URP/Rain_Effect/URP_Rain_Mist.mat
+  uploadId: 983326

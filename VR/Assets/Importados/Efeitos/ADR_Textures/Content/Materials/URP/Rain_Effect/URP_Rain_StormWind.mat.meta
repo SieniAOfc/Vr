@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 11a1dd150ac3d0c489973410496af6b7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 394420
+  packageName: Rain particle effects (URP)
+  packageVersion: 1.0.1
+  assetPath: Assets/ADR_Textures/Content/Materials/URP/Rain_Effect/URP_Rain_StormWind.mat
+  uploadId: 983326

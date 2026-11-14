@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 60452f252308b0947a5d4a7250c7507a
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 394420
+  packageName: Rain particle effects (URP)
+  packageVersion: 1.0.1
+  assetPath: Assets/ADR_Textures/Content/Prefabs/URP/Rain_Effect/PFX_Rain_Drizzle.prefab
+  uploadId: 983326
