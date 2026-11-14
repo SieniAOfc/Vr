@@ -33,6 +33,12 @@ public class RelampagoSync : MonoBehaviour
     void Start()
     {
         if (luzRelampago != null) luzRelampago.intensity = 0f;
+
+        // avisos para ajudar a achar o que está faltando no Inspector
+        if (videoPlayer == null) Debug.LogWarning("RelampagoSync: falta o VideoPlayer da skybox.");
+        if (temposDosRelampagos == null || temposDosRelampagos.Length == 0) Debug.LogWarning("RelampagoSync: a lista 'Tempos Dos Relampagos' está vazia.");
+        if (raios == null) Debug.LogWarning("RelampagoSync: falta o Particle System dos raios.");
+        if (jogador == null) Debug.LogWarning("RelampagoSync: falta o Jogador (sem ele o raio não aparece).");
     }
 
     void Update()
@@ -56,8 +62,17 @@ public class RelampagoSync : MonoBehaviour
         tempoAnterior = tempoAtual;
     }
 
+    // Teste rápido: no Play Mode, clique nos três pontinhos do componente e escolha "Testar relâmpago agora"
+    [ContextMenu("Testar relâmpago agora")]
+    void TestarAgora()
+    {
+        Disparar(0);
+    }
+
     void Disparar(int indice)
     {
+        Debug.Log("RelampagoSync: relâmpago disparado (#" + indice + ")");
+
         // posição do raio ao redor do jogador
         float graus = (angulosEmGraus != null && indice < angulosEmGraus.Length)
             ? angulosEmGraus[indice]

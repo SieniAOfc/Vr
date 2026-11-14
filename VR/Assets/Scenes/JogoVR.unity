@@ -5385,7 +5385,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RelampagoSync
   videoPlayer: {fileID: 1324055217}
-  temposDosRelampagos: []
+  temposDosRelampagos:
+  - 0.2
+  - 1.35
+  - 1.36
+  - 2.23
+  - 2.25
+  - 2.28
+  - 3.13
+  - 3.15
+  - 3.19
+  - 4.05
+  - 4.07
+  - 4.12
+  - 4.16
+  - 4.23
+  - 4.26
+  - 4.28
   angulosEmGraus: []
   raios: {fileID: 0}
   jogador: {fileID: 963209451}
@@ -6189,7 +6205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1324641595
 Transform:
   m_ObjectHideFlags: 0
