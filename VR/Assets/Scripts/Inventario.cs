@@ -22,4 +22,16 @@ public class Inventario : MonoBehaviour
         Debug.Log("Item coletado: " + item.InventarioNome);
         OnItemAdded.Invoke(item.InventarioNome);
     }
+
+    // Confere se o jogador tem o item (usado pela TV, portas, etc.)
+    public bool TemItem(Item item)
+    {
+        return item != null && itens.Contains(item);
+    }
+
+    // Tira o item do inventário (usado quando o item é consumido)
+    public void RemoverItem(Item item)
+    {
+        itens.Remove(item);
+    }
 }

@@ -101,12 +101,21 @@ public class PlayerIntera : MonoBehaviour
             if (interactable != null)
             {
                 SetHandCursor(true);
-                UpdateHighlight(interactable.GetComponent<ObjectHighlight>()); // liga a borda
+                // liga a borda (exceto em objetos de uso único que já foram usados, como a TV já ligada)
+                bool esgotado = interactable.exigeItem && interactable.usarUmaVez && interactable.jaUsado;
+                UpdateHighlight(esgotado ? null : interactable.GetComponent<ObjectHighlight>());
 
                 if (interactAction != null && interactAction.WasPressedThisFrame())
                 {
                     if (interactable.isMoving)
                     {
+                        return;
+                    }
+
+                    // Objeto que exige um item (ex.: TV com a fita): não é coletado nem inspecionado
+                    if (interactable.exigeItem)
+                    {
+                        UsarItem(interactable);
                         return;
                     }
 
@@ -142,6 +151,23 @@ public class PlayerIntera : MonoBehaviour
         {
             UpdateHighlight(null);
             SetHandCursor(false);
+        }
+    }
+
+    void UsarItem(ObjectInteract obj)
+    {
+        if (obj.usarUmaVez && obj.jaUsado) return;
+
+        if (inventario.TemItem(obj.itemNecessario))
+        {
+            obj.jaUsado = true;
+            if (obj.consumirItem) inventario.RemoverItem(obj.itemNecessario);
+            UpdateHighlight(null);
+            obj.OnUsarItem.Invoke(); // ex.: TVController.Ligar()
+        }
+        else
+        {
+            obj.OnSemItem.Invoke(); // ex.: tocar um som ou mostrar "falta alguma coisa"
         }
     }
 
