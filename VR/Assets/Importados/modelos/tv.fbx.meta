@@ -3,7 +3,47 @@ guid: ea1eb026705dae84daa7eca5e86b6dc0
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _002
+    second: {fileID: 2100000, guid: e3a35719d963a3c4babc9ff20becd824, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: _003
+    second: {fileID: 2100000, guid: d1e32ce8282f7674ba45e3a61c5c6526, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ekr1
+    second: {fileID: 2100000, guid: c5538deb451b66346986d486c28374b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gplast
+    second: {fileID: 2100000, guid: 9e72510d305f1fe47bdf00cd20da808e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material
+    second: {fileID: 2100000, guid: 2f12901edb9157b49bf62c10175168d9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_0
+    second: {fileID: 2100000, guid: b7e0294390c1ce240911307bdcd11aa9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: material_11
+    second: {fileID: 2100000, guid: ae2a2fce711024449bbd8c62f6d457e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: naklejka
+    second: {fileID: 2100000, guid: adde5d57fd1815e40ad1d43d8f1c6080, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

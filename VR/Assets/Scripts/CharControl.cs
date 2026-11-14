@@ -67,7 +67,10 @@ public class CharControl : MonoBehaviour
         }
         else
         {
+
             verticalVelocity -= gravity * Time.deltaTime;
+            verticalVelocity = Mathf.Max(verticalVelocity, -30f); // velocidade terminal
+
         }
 
         moveDirection.y = verticalVelocity;
