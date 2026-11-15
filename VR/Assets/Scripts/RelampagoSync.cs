@@ -20,6 +20,13 @@ public class RelampagoSync : MonoBehaviour
     [SerializeField] private float alturaDoRaio = 40f;
     [SerializeField] private Light luzRelampago;     // Directional Light com intensidade 0, que pisca nas montanhas/água
     [SerializeField] private float intensidadeMaxima = 3f;
+    [Tooltip("Ligado: toca o efeito inteiro (use para efeitos prontos com vários Particle Systems dentro). Desligado: emite só 1 partícula (sistema simples)")]
+    [SerializeField] private bool tocarEfeitoCompleto = true;
+    [Tooltip("Quanto tempo o efeito fica tocando antes de ser parado (segundos)")]
+    [SerializeField] private float duracaoDoEfeito = 0.6f;
+
+    [Header("Teste")]
+    [SerializeField] private bool testarAgora; // no Play Mode, marque esta caixinha para disparar um relâmpago de teste
 
     [Header("Trovão")]
     [SerializeField] private AudioSource audioTrovao;
@@ -34,6 +41,9 @@ public class RelampagoSync : MonoBehaviour
     {
         if (luzRelampago != null) luzRelampago.intensity = 0f;
 
+        // efeitos prontos costumam começar tocando sozinhos: garante que comecem parados
+        if (raios != null) raios.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
         // avisos para ajudar a achar o que está faltando no Inspector
         if (videoPlayer == null) Debug.LogWarning("RelampagoSync: falta o VideoPlayer da skybox.");
         if (temposDosRelampagos == null || temposDosRelampagos.Length == 0) Debug.LogWarning("RelampagoSync: a lista 'Tempos Dos Relampagos' está vazia.");
@@ -43,6 +53,13 @@ public class RelampagoSync : MonoBehaviour
 
     void Update()
     {
+        // caixinha de teste do Inspector
+        if (testarAgora)
+        {
+            testarAgora = false;
+            Disparar(0);
+        }
+
         if (videoPlayer == null || !videoPlayer.isPlaying) return;
 
         double tempoAtual = videoPlayer.time;
@@ -84,12 +101,27 @@ public class RelampagoSync : MonoBehaviour
             Vector3 pos = jogador.position + new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad)) * distanciaDoRaio;
             pos.y += alturaDoRaio;
             raios.transform.position = pos;
-            raios.Emit(1);
+            if (tocarEfeitoCompleto)
+            {
+                raios.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                raios.Play(true);
+                StartCoroutine(PararEfeitoDepois());
+            }
+            else
+            {
+                raios.Emit(1);
+            }
         }
 
         if (piscando != null) StopCoroutine(piscando);
         piscando = StartCoroutine(PiscarLuz());
         StartCoroutine(TocarTrovao());
+    }
+
+    IEnumerator PararEfeitoDepois()
+    {
+        yield return new WaitForSeconds(duracaoDoEfeito);
+        if (raios != null) raios.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
     IEnumerator PiscarLuz()
