@@ -18,6 +18,10 @@ public class RelampagoSync : MonoBehaviour
     [SerializeField] private Transform jogador;      // o raio aparece ao redor dele
     [SerializeField] private float distanciaDoRaio = 60f;
     [SerializeField] private float alturaDoRaio = 40f;
+    [Tooltip("(Opcional) Objetos vazios marcando ONDE cada raio cai: o 1º relâmpago usa o 1º ponto, o 2º usa o 2º, e assim por diante (repete quando acabam). Se preenchido, ignora Distancia Do Raio e Angulos. Coloque cada ponto no CHÃO")]
+    [SerializeField] private Transform[] pontosFixos;
+    [Tooltip("(Opcional) Raio desenhado por script (zigue-zague). Se preenchido, ele é disparado a cada relâmpago")]
+    [SerializeField] private RaioProcedural raioProcedural;
     [SerializeField] private Light luzRelampago;     // Directional Light com intensidade 0, que pisca nas montanhas/água
     [SerializeField] private float intensidadeMaxima = 3f;
     [Tooltip("Ligado: toca o efeito inteiro (use para efeitos prontos com vários Particle Systems dentro). Desligado: emite só 1 partícula (sistema simples)")]
@@ -96,9 +100,46 @@ public class RelampagoSync : MonoBehaviour
             : Random.Range(0f, 360f);
         float rad = graus * Mathf.Deg2Rad;
 
-        if (raios != null && jogador != null)
+        // Raio desenhado por script (não precisa de textura nem de Particle System)
+        if (raioProcedural != null)
         {
-            Vector3 pos = jogador.position + new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad)) * distanciaDoRaio;
+            Vector3 pontoNoChao;
+
+            if (pontosFixos != null && pontosFixos.Length > 0 && pontosFixos[indice % pontosFixos.Length] != null)
+            {
+                pontoNoChao = pontosFixos[indice % pontosFixos.Length].position;
+            }
+            else if (jogador != null)
+            {
+                pontoNoChao = jogador.position + new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad)) * distanciaDoRaio;
+
+                // acha a altura do chão nesse ponto (usa o Terrain; sem Terrain, usa os pés do jogador)
+                Terrain terreno = Terrain.activeTerrain;
+                if (terreno != null) pontoNoChao.y = terreno.SampleHeight(pontoNoChao) + terreno.transform.position.y;
+                else pontoNoChao.y = jogador.position.y - 3f;
+            }
+            else
+            {
+                pontoNoChao = transform.position;
+            }
+
+            raioProcedural.Cair(pontoNoChao);
+        }
+
+        bool usaPontosFixos = pontosFixos != null && pontosFixos.Length > 0;
+
+        if (raios != null && (usaPontosFixos || jogador != null))
+        {
+            Vector3 pos;
+            if (usaPontosFixos)
+            {
+                Transform ponto = pontosFixos[indice % pontosFixos.Length];
+                pos = ponto != null ? ponto.position : raios.transform.position;
+            }
+            else
+            {
+                pos = jogador.position + new Vector3(Mathf.Sin(rad), 0f, Mathf.Cos(rad)) * distanciaDoRaio;
+            }
             pos.y += alturaDoRaio;
             raios.transform.position = pos;
             if (tocarEfeitoCompleto)
