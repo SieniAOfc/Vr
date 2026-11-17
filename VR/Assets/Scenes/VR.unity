@@ -5973,6 +5973,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea1eb026705dae84daa7eca5e86b6dc0, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1711972259}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea1eb026705dae84daa7eca5e86b6dc0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1896018090}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea1eb026705dae84daa7eca5e86b6dc0, type: 3}
       insertIndex: -1
@@ -7972,7 +7975,7 @@ GameObject:
   - component: {fileID: 1896018088}
   - component: {fileID: 1896018091}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: LuzTV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8018,7 +8021,7 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 0, g: 0.12028265, b: 1, a: 1}
-  m_Intensity: 1000
+  m_Intensity: 2000
   m_Range: 24
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8080,12 +8083,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896018087}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.5735764, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 50.17, y: 14.08, z: 47.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.0012335783, y: 0.9974814, z: 0.06861373, w: -0.017933281}
+  m_LocalPosition: {x: 0.08287461, y: 1.3372287, z: 0.27696663}
+  m_LocalScale: {x: 0.16666591, y: 0.1432408, z: 0.16614808}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2069839563}
   m_LocalEulerAnglesHint: {x: 0, y: 70, z: 0}
 --- !u!114 &1896018091
 MonoBehaviour:
@@ -8251,10 +8254,10 @@ MonoBehaviour:
   aoLigar:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 50921046}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 402672373}
+        m_TargetAssemblyTypeName: SequenciaFinal, Assembly-CSharp
+        m_MethodName: Iniciar
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8451,7 +8454,6 @@ SceneRoots:
   - {fileID: 1186399427}
   - {fileID: 1363027513}
   - {fileID: 249547410}
-  - {fileID: 1896018090}
   - {fileID: 50921047}
   - {fileID: 1324641595}
   - {fileID: 974991638}
