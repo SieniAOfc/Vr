@@ -13,6 +13,9 @@ public class FimDeJogo : MonoBehaviour
     [SerializeField] private string cenaParaCarregar = "";
     [SerializeField] private float tempoAteCarregar = 8f;
 
+    [Header("Teste")]
+    [SerializeField] private bool testarAgora; // no Play Mode, marque para testar o fim sem precisar jogar até lá
+
     private bool terminou;
 
     void Start()
@@ -21,6 +24,15 @@ public class FimDeJogo : MonoBehaviour
         {
             painelFim.alpha = 0f;
             painelFim.gameObject.SetActive(false);
+        }
+    }
+
+    void Update()
+    {
+        if (testarAgora)
+        {
+            testarAgora = false;
+            Terminar();
         }
     }
 
