@@ -1,9 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-#if UNITY_EDITOR
 using UnityEngine.InputSystem;
-#endif
 
 // Coloque no MESMO objeto que tem o Collider: o CardboardReticlePointer manda as mensagens
 // OnPointerEnter / OnPointerExit / OnPointerClick para o objeto atingido pelo raio.
@@ -43,13 +41,14 @@ public class InteracaoCardboard : MonoBehaviour
             highlight.SetHighlight(olhando && EstaPerto() && !Esgotado());
         }
 
-#if UNITY_EDITOR
-        // Teste no PC: olhe para o objeto e aperte E (no celular vale o toque na tela)
-        if (olhando && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        // Funciona no PC (Tecla E) e no Celular/PC com Controle Xbox (Botão A / Button South)
+        bool apertouTeclado = Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame;
+        bool apertouControle = Gamepad.current != null && Gamepad.current.buttonSouth.wasPressedThisFrame;
+
+        if (olhando && (apertouTeclado || apertouControle))
         {
             OnPointerClick();
         }
-#endif
     }
 
     void OnDisable()

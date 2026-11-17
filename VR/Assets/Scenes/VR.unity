@@ -6448,7 +6448,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -6808,12 +6808,24 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3200127111870678886, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3200127111870678886, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4907436313697264477, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4910089927891486227, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082536912314825234, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7289076918735689292, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_LocalScale.x
@@ -6881,7 +6893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7627607025944073969, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.31
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627607025944253195, guid: d68fd4b5dfddedc4c809c8fa85110640, type: 3}
       propertyPath: m_Layer
@@ -8724,7 +8736,7 @@ GameObject:
   - component: {fileID: 2103557376}
   - component: {fileID: 2103557378}
   - component: {fileID: 2103557377}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
