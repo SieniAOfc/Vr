@@ -10,9 +10,13 @@ public class SequenciaFinal : MonoBehaviour
     [Header("Raio final")]
     [SerializeField] private Transform pontoDoRaio;           // objeto vazio no meio do cenário, onde o raio cai
     [SerializeField] private ParticleSystem raio;             // pode ser o mesmo Particle System "Raios"
+    [SerializeField] private RaioProcedural raioProcedural;   // (Opcional) raio desenhado por script, no lugar do Particle System
     [SerializeField] private float alturaDoCentroDoRaio = 20f; // metade da altura do raio, para ele tocar o chão
     [SerializeField] private Light luzRelampago;              // a mesma luz usada nos relâmpagos
     [SerializeField] private float intensidadeDoFlash = 6f;
+    [Tooltip("Ligado: toca o efeito inteiro (efeitos prontos com vários Particle Systems). Desligado: emite só 1 partícula")]
+    [SerializeField] private bool tocarEfeitoCompleto = true;
+    [SerializeField] private float duracaoDoEfeito = 1f;
     [SerializeField] private AudioSource audioTrovao;
     [SerializeField] private AudioClip trovaoForte;
     [SerializeField] private float atrasoAntesDoRaio = 2f;
@@ -29,6 +33,9 @@ public class SequenciaFinal : MonoBehaviour
     [SerializeField] private VideoClip clipeCeuCalmo;         // opção 1: segundo vídeo
     [SerializeField] private Renderer esferaSkybox;           // opção 2: troca o material da esfera
     [SerializeField] private Material materialCeuCalmo;
+    [Tooltip("Opção 3: duas esferas. A da tempestade é desligada e a do céu calmo (que começa desligada) é ligada")]
+    [SerializeField] private GameObject esferaTempestade;
+    [SerializeField] private GameObject esferaCeuCalmo;
 
     [Header("Final")]
     [SerializeField] private GameObject objetoFinal;          // começa desligado e aparece depois do raio
@@ -40,6 +47,7 @@ public class SequenciaFinal : MonoBehaviour
     void Start()
     {
         if (objetoFinal != null) objetoFinal.SetActive(false);
+        if (esferaCeuCalmo != null) esferaCeuCalmo.SetActive(false);
     }
 
     public void Iniciar()
@@ -60,8 +68,18 @@ public class SequenciaFinal : MonoBehaviour
         if (raio != null && pontoDoRaio != null)
         {
             raio.transform.position = pontoDoRaio.position + Vector3.up * alturaDoCentroDoRaio;
-            raio.Emit(1);
+            if (tocarEfeitoCompleto)
+            {
+                raio.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+                raio.Play(true);
+                StartCoroutine(PararRaioDepois());
+            }
+            else
+            {
+                raio.Emit(1);
+            }
         }
+        if (raioProcedural != null && pontoDoRaio != null) raioProcedural.Cair(pontoDoRaio.position);
         StartCoroutine(PiscarLuz());
 
         yield return new WaitForSeconds(0.15f);
@@ -79,6 +97,12 @@ public class SequenciaFinal : MonoBehaviour
         if (objetoFinal != null) objetoFinal.SetActive(true);
 
         aoTerminar.Invoke();
+    }
+
+    IEnumerator PararRaioDepois()
+    {
+        yield return new WaitForSeconds(duracaoDoEfeito);
+        if (raio != null) raio.Stop(true, ParticleSystemStopBehavior.StopEmitting);
     }
 
     IEnumerator PiscarLuz()
@@ -112,6 +136,10 @@ public class SequenciaFinal : MonoBehaviour
 
     void TrocarCeu()
     {
+        // opção 3: troca de esfera
+        if (esferaTempestade != null) esferaTempestade.SetActive(false);
+        if (esferaCeuCalmo != null) esferaCeuCalmo.SetActive(true);
+
         if (videoSkybox == null) return;
 
         videoSkybox.Stop();

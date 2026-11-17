@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
+#if UNITY_EDITOR
+using UnityEngine.InputSystem;
+#endif
 
 // Dispara raio (partículas), flash de luz e trovão nos momentos em que o vídeo da skybox mostra relâmpagos.
 // Coloque em um objeto vazio da cena (ex.: "Tempestade") e preencha os campos no Inspector.
@@ -22,6 +25,10 @@ public class RelampagoSync : MonoBehaviour
     [SerializeField] private Transform[] pontosFixos;
     [Tooltip("(Opcional) Raio desenhado por script (zigue-zague). Se preenchido, ele é disparado a cada relâmpago")]
     [SerializeField] private RaioProcedural raioProcedural;
+    [Tooltip("Ligado: os raios caem na frente do jogador, dentro do campo de visão. Desligado: em qualquer direção ao redor. (Não vale quando Pontos Fixos ou Angulos Em Graus estão preenchidos)")]
+    [SerializeField] private bool cairNaFrenteDoJogador = true;
+    [Tooltip("Abertura em graus, para cada lado, a partir de onde o jogador está olhando")]
+    [SerializeField] private float anguloDeVisao = 40f;
     [SerializeField] private Light luzRelampago;     // Directional Light com intensidade 0, que pisca nas montanhas/água
     [SerializeField] private float intensidadeMaxima = 3f;
     [Tooltip("Ligado: toca o efeito inteiro (use para efeitos prontos com vários Particle Systems dentro). Desligado: emite só 1 partícula (sistema simples)")]
@@ -31,6 +38,11 @@ public class RelampagoSync : MonoBehaviour
 
     [Header("Teste")]
     [SerializeField] private bool testarAgora; // no Play Mode, marque esta caixinha para disparar um relâmpago de teste
+    [Tooltip("Ajuste fino: soma este valor (em segundos) a todos os tempos. Positivo = o raio vem mais tarde; negativo = mais cedo")]
+    [SerializeField] private float deslocamentoDeTempo = 0f;
+    [Tooltip("Modo gravação (só no Editor): com o jogo rodando, aperte R no instante de cada relâmpago do vídeo e o tempo aparece no Console")]
+    [SerializeField] private bool modoGravacao;
+    [SerializeField] private float atrasoDaReacao = 0.15f; // compensa o tempo que você demora para apertar a tecla
 
     [Header("Trovão")]
     [SerializeField] private AudioSource audioTrovao;
@@ -64,6 +76,15 @@ public class RelampagoSync : MonoBehaviour
             Disparar(0);
         }
 
+        #if UNITY_EDITOR
+        // modo gravação: aperte R no instante de cada relâmpago do vídeo
+        if (modoGravacao && videoPlayer != null && videoPlayer.isPlaying && Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            float tempoGravado = Mathf.Max(0f, (float)videoPlayer.time - atrasoDaReacao);
+            Debug.Log("TEMPO DO RELÂMPAGO: " + tempoGravado.ToString("F2", System.Globalization.CultureInfo.InvariantCulture));
+        }
+#endif
+
         if (videoPlayer == null || !videoPlayer.isPlaying) return;
 
         double tempoAtual = videoPlayer.time;
@@ -73,7 +94,7 @@ public class RelampagoSync : MonoBehaviour
 
         for (int i = 0; i < temposDosRelampagos.Length; i++)
         {
-            float t = temposDosRelampagos[i];
+            float t = temposDosRelampagos[i] + deslocamentoDeTempo;
             if (t > tempoAnterior && t <= tempoAtual)
             {
                 Disparar(i);
@@ -97,7 +118,7 @@ public class RelampagoSync : MonoBehaviour
         // posição do raio ao redor do jogador
         float graus = (angulosEmGraus != null && indice < angulosEmGraus.Length)
             ? angulosEmGraus[indice]
-            : Random.Range(0f, 360f);
+            : AnguloAleatorio();
         float rad = graus * Mathf.Deg2Rad;
 
         // Raio desenhado por script (não precisa de textura nem de Particle System)
@@ -185,5 +206,18 @@ public class RelampagoSync : MonoBehaviour
 
         yield return new WaitForSeconds(Random.Range(atrasoDoTrovao.x, atrasoDoTrovao.y));
         audioTrovao.PlayOneShot(sonsDeTrovao[Random.Range(0, sonsDeTrovao.Length)]);
+    }
+
+    // Direção do raio: na frente de onde o jogador olha (dentro do campo de visão) ou aleatória
+    float AnguloAleatorio()
+    {
+        Camera cam = Camera.main;
+        if (cairNaFrenteDoJogador && cam != null)
+        {
+            Vector3 f = cam.transform.forward;
+            float anguloDaCamera = Mathf.Atan2(f.x, f.z) * Mathf.Rad2Deg;
+            return anguloDaCamera + Random.Range(-anguloDeVisao, anguloDeVisao);
+        }
+        return Random.Range(0f, 360f);
     }
 }
